@@ -1,5 +1,6 @@
 
 const Web3 = require('web3');
+// change the RPC if you want to switch networks / providers
 const web3 = new Web3('https://evm.cryptocurrencydevs.org');
 
 // VARIABLES
