@@ -7,7 +7,7 @@ let from_address = '0xB9F96789D98407B1b98005Ed53e8D8824D42A756';
 let to_address = '0x6690004E7F83AbEF341dD0DBD326CC55Ba9F1075';
 let decimals = 18;
 let convert_precision = (10**decimals);
-let transfer_amount = 1000;
+let transfer_amount = 100;
 let amount = transfer_amount * convert_precision;
 let amount_to_wei = web3.utils.toWei(amount.toString(), 'ether');
 // // function signature: first 4 bytes of the sha3 hash
@@ -23,17 +23,21 @@ let transfer_data = function_signature + address_param + transfer_value_prefix +
 var esGas;
 // gas price (in wei)
 var gasPrice;
+var nonce = await web3.eth.getTransactionCount(
+    from_address,
+    "pending"
+ );
 web3.eth.getGasPrice(function(e, r){
     gasPrice = r;
     console.log(r);
     web3.eth.estimateGas({
         "from"      : from_address,       
-        "nonce"     : 1, 
+        "nonce"     : nonce, 
         "to"        : to_address,     
         "data"      : transfer_data
     }).then((result) => {
         esGas = result;
-        console.log("Transfer Amount (ether): " + web3.utils.fromWei(amount.toString(), 'ether') + "\n" + "Estimated Gas (wei): " + (web3.utils.fromWei(gasPrice.toString(), 'ether') * esGas) * 1.5);
+        console.log("Nonce: " + nonce +"\n"+ "Transfer Amount (ether): " + web3.utils.fromWei(amount.toString(), 'ether') + "\n" + "Estimated Gas (wei): " + (web3.utils.fromWei(gasPrice.toString(), 'ether') * esGas) * 1.5);
     });
 });
 }
