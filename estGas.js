@@ -10,7 +10,7 @@ let transfer = {
     to_address: '0x6690004E7F83AbEF341dD0DBD326CC55Ba9F1075',
     decimals: 18,
     gas_float_percentage: transfer_type == 'standard' ? 1.2 : transfer_type == 'mid' ? 1.5 : transfer_type == 'priority' ? 2 : 1,
-    transfer_amount: 1000000
+    transfer_amount: 100
 }
 // FUNCTION
 // function to estimate gas for next transfer()
