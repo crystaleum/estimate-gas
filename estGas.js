@@ -3,12 +3,11 @@ const Web3 = require('web3');
 const web3 = new Web3('https://evm.cryptocurrencydevs.org');
 
 // VARIABLES
-// Set recipient address and transfer value first.
+// Initialize to_address, from_address, transfer_type, and transfer_amount values.
 var transfer_type = 'mid';
 let transfer = {
     from_address: '0xB9F96789D98407B1b98005Ed53e8D8824D42A756',
     to_address: '0x6690004E7F83AbEF341dD0DBD326CC55Ba9F1075',
-    decimals: 18,
     gas_float_percentage: transfer_type == 'standard' ? 1.2 : transfer_type == 'mid' ? 1.5 : transfer_type == 'priority' ? 2 : 1,
     transfer_amount: 100
 }
