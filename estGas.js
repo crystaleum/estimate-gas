@@ -23,10 +23,7 @@ let transfer_data = function_signature + address_param + transfer_value_prefix +
 var esGas;
 // gas price (in wei)
 var gasPrice;
-var nonce = await web3.eth.getTransactionCount(
-    from_address,
-    "pending"
- );
+
 web3.eth.getGasPrice(function(e, r){
     gasPrice = r;
     console.log(r);
@@ -41,4 +38,8 @@ web3.eth.getGasPrice(function(e, r){
     });
 });
 }
-estimateTransactionGas();
+var nonce = await web3.eth.getTransactionCount(
+    from_address,
+    "pending"
+ );
+estimateTransactionGas(nonce);
