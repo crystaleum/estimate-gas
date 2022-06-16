@@ -36,7 +36,7 @@ var nonce = await web3.eth.getTransactionCount(
 // and estimate the gas for next transfer
 web3.eth.getGasPrice(function(e, r){
     gasPrice = r;
-    console.log(r);
+    console.log("Gas Price: "+r);
     web3.eth.estimateGas({
         "from"      : from_address,       
         "nonce"     : nonce, 
