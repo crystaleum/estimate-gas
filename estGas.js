@@ -1,13 +1,17 @@
 
 const Web3 = require('web3');
 const web3 = new Web3('https://evm.cryptocurrencydevs.org');
-async function estimateTransactionGas(){
+
+// VARIABLES
 // Set recipient address and transfer value first.
 let from_address = '0xB9F96789D98407B1b98005Ed53e8D8824D42A756';
 let to_address = '0x6690004E7F83AbEF341dD0DBD326CC55Ba9F1075';
 let decimals = 18;
 let convert_precision = (10**decimals);
 let transfer_amount = 100;
+// FUNCTION
+// function to estimate gas for next transfer()
+async function estimateTransactionGas(){
 let amount = transfer_amount * convert_precision;
 let amount_to_wei = web3.utils.toWei(amount.toString(), 'ether');
 // // function signature: first 4 bytes of the sha3 hash
@@ -23,7 +27,13 @@ let transfer_data = function_signature + address_param + transfer_value_prefix +
 var esGas;
 // gas price (in wei)
 var gasPrice;
-
+// get nonce
+var nonce = await web3.eth.getTransactionCount(
+    from_address,
+    "pending"
+ );
+// Web3 eth call to get the gas prices, 
+// and estimate the gas for next transfer
 web3.eth.getGasPrice(function(e, r){
     gasPrice = r;
     console.log(r);
@@ -37,9 +47,4 @@ web3.eth.getGasPrice(function(e, r){
         console.log("Nonce: " + nonce +"\n"+ "Transfer Amount (ether): " + web3.utils.fromWei(amount.toString(), 'ether') + "\n" + "Estimated Gas (wei): " + (web3.utils.fromWei(gasPrice.toString(), 'ether') * esGas) * 1.5);
     });
 });
-}
-var nonce = await web3.eth.getTransactionCount(
-    from_address,
-    "pending"
- );
-estimateTransactionGas(nonce);
+} estimateTransactionGas();
